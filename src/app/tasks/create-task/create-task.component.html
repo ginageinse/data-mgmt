@@ -1,1 +1,44 @@
-<p>create-task works!</p>
+<div class="form-container">
+
+  <form [formGroup]="taskForm" (ngSubmit)="onSubmit()">
+
+    <div class="space-margin">
+      <div class="form-group">
+        <label for="name">Nombre de la Tarea</label>
+        <input type="text" id="name" formControlName="name" required/>
+      </div>
+
+      <div class="form-group">
+        <label for="dueDate">Fecha límite</label>
+        <input type="date" id="dueDate" formControlName="dueDate" />
+      </div>
+
+      <div class="form-group">
+        <label>Personas Asignadas</label>
+        <div formArrayName="assignedPeople">
+          <div *ngFor="let person of assignedPeople.controls; let i = index">
+            <input [formControlName]="i" type="text" placeholder="Ingrese el nombre de la persona" />
+            <button type="button" class="space-top" (click)="removePerson(i)">Eliminar</button>
+          </div>
+        </div>
+        <button type="button" class="space-top" (click)="addPerson()">Agregar Persona</button>
+      </div>
+
+      <div class="form-group">
+        <label>Habilidades Requeridas</label>
+        <div formArrayName="skills">
+          <div *ngFor="let skill of skills.controls; let i = index">
+            <input [formControlName]="i" type="text" placeholder="Ingrese una habilidad" />
+            <button type="button" class="space-top" (click)="removeSkill(i)">Eliminar</button>
+          </div>
+        </div>
+        <button type="button" class="space-top" (click)="addSkill()">Agregar Habilidad</button>
+      </div>
+
+      <div class="btn">
+        <button type="submit" class="principal-button">Crear Tarea</button>
+      </div>
+    </div>
+  </form>
+</div>
+
