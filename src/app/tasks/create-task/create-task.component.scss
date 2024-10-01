@@ -1,27 +1,19 @@
-$form-background-color: #eeefe5;
-$button-color: #448374;
-$button-principal-color: #1f4c3f;
-$button-hover-color: darken($button-color, 10%);
+@import 'src/app/app.component.scss';
 
-.form-container {
-  background-color: $form-background-color;
-  padding: 20px;
-  border-radius: 8px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-  min-width: 600px;
-  margin: 0 auto;
-
-  @media (max-width: 600px) {
-    min-width: auto;
-    width: 100%;
-  }
-
+.content-container {
   .space-margin {
     margin: 5%;
   }
 
-  .space-top {
+  .space {
     margin-top: 1%;
+    display: block;
+    margin-bottom: 1%;
+  }
+
+  .sub-label {
+    font-weight: 400 !important;
+    font-size: 16px !important;
   }
 
   .btn {
@@ -29,49 +21,14 @@ $button-hover-color: darken($button-color, 10%);
     align-items: center;
   }
 
-  .form-group {
-    margin-bottom: 20px;
-
-    label {
-      display: block;
-      margin-bottom: 5px;
-      font-weight: bold;
-      font-size: 1.1em;
-    }
-
-    input {
-      width: 95%;
-      padding: 10px;
-      border: 1px solid #ccc;
-      border-radius: 4px;
-      font-size: 1em;
-
-      &:focus {
-        border-color: $button-color;
-        outline: none;
-        box-shadow: 0 0 5px rgba($button-color, 0.5);
-      }
-    }
-  }
-
-
-
-  button {
-    background-color: $button-color;
-    color: white;
-    padding: 10px 15px;
-    border: none;
-    border-radius: 4px;
-    font-size: 1em;
-    cursor: pointer;
-    transition: background-color 0.3s;
-
-    &:hover {
-      background-color: $button-hover-color;
-    }
-  }
-
   .principal-button{
     background-color: $button-principal-color;
   }
 }
+
+.error-text {
+  color: red;
+  font-size: 0.875rem;
+  margin-top: 5px;
+}
+

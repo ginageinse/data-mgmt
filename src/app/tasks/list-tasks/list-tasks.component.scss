@@ -1,0 +1,45 @@
+@import 'src/app/app.component.scss';
+
+p {
+  color: #ff0000;
+  font-weight: bold;
+  text-align: center;
+}
+
+.styled-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 25px 0;
+  font-size: 18px;
+  text-align: left;
+
+  thead {
+    tr {
+      background-color: #a8d4c6;
+      color: #ffffff;
+      text-align: left;
+    }
+  }
+
+  th, td {
+    padding: 12px 15px;
+  }
+
+  tbody {
+    tr {
+      border-bottom: 1px solid #dddddd;
+
+      &:nth-of-type(even) {
+        background-color: #f3f3f3;
+      }
+
+      &:last-of-type {
+        border-bottom: 2px solid #a8d4c6;
+      }
+
+      &:hover {
+        background-color: #f1f1f1;
+      }
+    }
+  }
+}

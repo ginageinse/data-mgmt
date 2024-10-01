@@ -1,29 +1,30 @@
 import { Component, OnInit } from '@angular/core';
-import { Task } from '../task.model';
-import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, FormArray, Validators, AbstractControl } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { addTask } from '../task.actions';
+import { TaskService } from '../task.services';
 
 @Component({
   selector: 'app-create-task',
   templateUrl: './create-task.component.html',
   styleUrls: ['./create-task.component.scss']
 })
-export class CreateTaskComponent implements OnInit{
+export class CreateTaskComponent implements OnInit {
 
   taskForm!: FormGroup;
+  taskFormSubmitted = false;
 
   constructor(
     private formBuilder: FormBuilder,
-    private store: Store
+    private store: Store,
+    private taskService: TaskService
   ) {}
 
   ngOnInit(): void {
     this.taskForm = this.formBuilder.group({
       name: ['', Validators.required],
       dueDate: ['', Validators.required],
-      assignedPeople: this.formBuilder.array([], Validators.required),
-      skills: this.formBuilder.array([], Validators.required)
+      assignedPeople: this.formBuilder.array([], [Validators.required, this.assignedPeopleRequired])
     });
   }
 
@@ -32,44 +33,58 @@ export class CreateTaskComponent implements OnInit{
   }
 
   addPerson() {
-    this.assignedPeople.push(this.formBuilder.control('', [Validators.required, Validators.minLength(1)]));
+    const personGroup = this.formBuilder.group({
+      name: ['', [Validators.required]],
+      age: ['', [Validators.required, Validators.min(1)]],
+      skills: this.formBuilder.array([], [this.skillsRequired])
+    });
+
+    this.assignedPeople.push(personGroup);
   }
 
   removePerson(index: number) {
     this.assignedPeople.removeAt(index);
   }
 
-  // Métodos para manejar el FormArray de habilidades
-  get skills(): FormArray {
-    return this.taskForm.get('skills') as FormArray;
+  getSkills(personIndex: number): FormArray {
+    return this.assignedPeople.at(personIndex).get('skills') as FormArray;
   }
 
-  addSkill() {
-    this.skills.push(this.formBuilder.control('', [Validators.required, Validators.minLength(1)]));
+  addSkill(personIndex: number) {
+    this.getSkills(personIndex).push(this.formBuilder.control('', [Validators.required]));
   }
 
-  removeSkill(index: number) {
-    this.skills.removeAt(index);
+  removeSkill(personIndex: number, skillIndex: number) {
+    this.getSkills(personIndex).removeAt(skillIndex);
+  }
+
+  assignedPeopleRequired(control: AbstractControl): { [key: string]: boolean } | null {
+    const formArray = control as FormArray;
+    return formArray.length > 0 ? null : { required: true };
+  }
+
+  skillsRequired(control: AbstractControl): { [key: string]: boolean } | null {
+    const formArray = control as FormArray;
+    return formArray.length > 0 ? null : { required: true };
   }
 
   onSubmit() {
-    console.log(this.taskForm)
+    this.taskFormSubmitted = true;
+
     if (this.taskForm.valid) {
-      const task: Task = {
+      const task = {
         id: Date.now(),
         name: this.taskForm.value.name,
         dueDate: this.taskForm.value.dueDate,
-        assignedPeople: this.taskForm.value.assignedPeople,
-        skills: this.taskForm.value.skills
+        assignedPeople: this.taskForm.value.assignedPeople
       };
 
-      console.log(this.taskForm);
-
       this.store.dispatch(addTask({ task }));
+      this.taskService.addTask(task);
       this.taskForm.reset();
+      this.taskFormSubmitted = false;
     } else {
       alert('Por favor, complete todos los campos requeridos.');
     }
-
   }
 }

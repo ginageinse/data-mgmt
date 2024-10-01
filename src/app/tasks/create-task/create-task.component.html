@@ -1,38 +1,69 @@
-<div class="form-container">
-
+<div class="content-container">
   <form [formGroup]="taskForm" (ngSubmit)="onSubmit()">
 
     <div class="space-margin">
       <div class="form-group">
         <label for="name">Nombre de la Tarea</label>
-        <input type="text" id="name" formControlName="name" required/>
+        <input type="text" id="name" formControlName="name" required />
+        <div *ngIf="taskForm.get('name')?.invalid && taskForm.get('name')?.touched || taskForm.get('name')?.invalid && taskFormSubmitted" class="error-text">
+          El nombre de la tarea es requerido.
+        </div>
       </div>
 
       <div class="form-group">
         <label for="dueDate">Fecha límite</label>
         <input type="date" id="dueDate" formControlName="dueDate" />
+        <div *ngIf="taskForm.get('dueDate')?.invalid && taskForm.get('dueDate')?.touched || taskForm.get('dueDate')?.invalid && taskFormSubmitted" class="error-text">
+          La fecha límite es requerida.
+        </div>
       </div>
 
       <div class="form-group">
         <label>Personas Asignadas</label>
         <div formArrayName="assignedPeople">
-          <div *ngFor="let person of assignedPeople.controls; let i = index">
-            <input [formControlName]="i" type="text" placeholder="Ingrese el nombre de la persona" />
-            <button type="button" class="space-top" (click)="removePerson(i)">Eliminar</button>
-          </div>
-        </div>
-        <button type="button" class="space-top" (click)="addPerson()">Agregar Persona</button>
-      </div>
+          <div *ngFor="let person of assignedPeople.controls; let i = index" [formGroupName]="i">
+            <label for="name" class="sub-label">Nombre</label>
+            <input formControlName="name" id="name" type="text" placeholder="Ingrese el nombre de la persona" required />
+            <div *ngIf="person.get('name')?.invalid && person.get('name')?.touched || person.get('name')?.invalid && taskFormSubmitted" class="error-text">
+              El nombre de la persona es requerido.
+            </div>
 
-      <div class="form-group">
-        <label>Habilidades Requeridas</label>
-        <div formArrayName="skills">
-          <div *ngFor="let skill of skills.controls; let i = index">
-            <input [formControlName]="i" type="text" placeholder="Ingrese una habilidad" />
-            <button type="button" class="space-top" (click)="removeSkill(i)">Eliminar</button>
+            <label for="age" class="sub-label">Edad</label>
+            <input formControlName="age" id="age" type="number" placeholder="Ingrese la edad de la persona" required />
+            <div *ngIf="person.get('age')?.invalid && person.get('age')?.touched || person.get('age')?.invalid && taskFormSubmitted" class="error-text">
+              La edad es requerida y debe ser mayor a 0.
+            </div>
+
+            <div formArrayName="skills">
+              <div *ngFor="let skill of getSkills(i).controls; let j = index">
+                <label for="skill" class="sub-label">Habilidad</label>
+                <div class="grid-container">
+                  <input [formControlName]="j" id="skill" type="text" placeholder="Ingrese una habilidad" required />
+
+
+                  <button type="button" (click)="removeSkill(i, j)">Eliminar habilidad</button>
+                  <div *ngIf="skill.invalid && skill.touched || skill.invalid && taskFormSubmitted" class="error-text">
+                    La habilidad es requerida.
+                  </div>
+
+                </div>
+              </div>
+            </div>
+
+            <div class="grid-container">
+              <button type="button" class="space" (click)="removePerson(i)">Eliminar Persona</button>
+              <button type="button" class="space" (click)="addSkill(i)">Agregar Habilidad</button>
+            </div>
+            <div *ngIf="getSkills(i).invalid && taskFormSubmitted" class="error">
+              Debes agregar al menos una habilidad por persona.
+            </div>
+
+          </div>
+          <div *ngIf="assignedPeople.invalid && taskFormSubmitted" class="error">
+            Debes agregar al menos una persona.
           </div>
         </div>
-        <button type="button" class="space-top" (click)="addSkill()">Agregar Habilidad</button>
+        <button type="button" class="space" style="width: 100%;" (click)="addPerson()">Agregar Persona</button>
       </div>
 
       <div class="btn">
@@ -41,4 +72,3 @@
     </div>
   </form>
 </div>
-
