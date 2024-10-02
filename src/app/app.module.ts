@@ -4,12 +4,12 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { TasksModule } from './tasks/tasks.module';
-import { CreateTaskComponent } from './tasks/create-task/create-task.component';
+import { CreateTaskComponent } from './tasks/components/create-task/create-task.component';
 import { StoreModule } from '@ngrx/store';
-import { taskReducer } from './tasks/task.reducer';
+import { taskReducer } from './tasks/store/task.reducer';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { ReactiveFormsModule } from '@angular/forms';
-import { ListTasksComponent } from './tasks/list-tasks/list-tasks.component';
+import { ListTasksComponent } from './tasks/components/list-tasks/list-tasks.component';
 
 @NgModule({
   declarations: [

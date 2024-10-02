@@ -1,0 +1,86 @@
+@import 'src/app/app.component.scss';
+
+p {
+  color: $alert;
+  font-weight: bold;
+  text-align: center;
+}
+
+.styled-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 25px 0;
+  font-size: 18px;
+  text-align: left;
+
+  thead {
+    tr {
+      background-color: $button-color;
+      color: #ffffff;
+      text-align: left;
+      font-size: 15px;
+    }
+  }
+
+  th, td {
+    padding: 12px 15px;
+    font-size: 15px;
+  }
+
+  tbody {
+    tr {
+      border-bottom: 1px solid #dddddd;
+
+      &:nth-of-type(even) {
+        background-color: #f3f3f3;
+      }
+
+      &:last-of-type {
+        border-bottom: 2px solid $button-color;
+      }
+
+      &:hover {
+        background-color: #f1f1f1;
+      }
+    }
+  }
+}
+
+input[type="checkbox"] {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  width: 15px;
+  height: 15px;
+  background-color: #eee;
+  border: 2px solid $button-principal-color;
+  border-radius: 4px;
+  vertical-align: top;
+
+  &:checked {
+    background-color: $button-principal-color;
+    border-color: $button-principal-color;
+  }
+}
+
+input[type="checkbox"]:checked::after {
+  content: '✔';
+  color: $white;
+  position: relative;
+  top: -3px;
+}
+
+.button-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+}
+
+.button-container button.active {
+  background-color: $button-principal-color;
+  color: $white;
+  border-color: $button-principal-color;
+}
+
+button {
+  margin: 1%;
+}

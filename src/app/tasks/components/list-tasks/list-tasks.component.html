@@ -1,0 +1,50 @@
+<div class="button-container">
+  <button [ngClass]="{'active': currentFilter === 'all'}" (click)="setFilter('all')">Todas</button>
+  <button [ngClass]="{'active': currentFilter === 'completed'}" (click)="setFilter('completed')">Completadas</button>
+  <button [ngClass]="{'active': currentFilter === 'notCompleted'}" (click)="setFilter('notCompleted')">No Completadas</button>
+</div>
+
+<div class="content-container">
+  <h2>Listado de tareas</h2>
+  <div *ngIf="existTask">
+    <div *ngFor="let task of filteredTasks; let i = index">
+        <h3>{{ i + 1 }}. Nombre de la tarea: {{ task.name }}</h3>
+
+        <label>
+          <input type="checkbox" [checked]="task.isCompleted" (change)="toggleCompletion(task)" />
+          Tarea completada
+        </label>
+
+        <h4>Fecha límite: {{ task.dueDate | date }}</h4>
+        <h4>Personas asignadas:</h4>
+
+        <table class="styled-table">
+          <thead>
+            <tr>
+              <th>Nombre</th>
+              <th>Edad</th>
+              <th>Habilidades</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let person of task.assignedPeople">
+              <td>{{ person.nameP }}</td>
+              <td>{{ person.age }}</td>
+              <td>{{ getSkills(person) }}</td>
+            </tr>
+          </tbody>
+        </table>
+
+    </div>
+  </div>
+  <div *ngIf="!existTask && currentFilter==='all'">
+    <p>No hay ninguna tarea creada</p>
+  </div>
+
+  <div *ngIf="!emptyTask && currentFilter==='notCompleted'">
+    <p>No hay ninguna tarea no completada </p>
+  </div>
+  <div *ngIf="!emptyTask && currentFilter==='completed'">
+    <p>No hay ninguna tarea completada </p>
+  </div>
+</div>
