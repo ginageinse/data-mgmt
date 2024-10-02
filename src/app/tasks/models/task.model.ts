@@ -7,7 +7,7 @@ export interface Task {
 }
 
 export interface Person {
-  name: string;
+  nameP: string;
   age: number;
   skills: Skills[];
 }

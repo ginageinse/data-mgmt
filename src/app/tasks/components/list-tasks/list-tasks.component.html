@@ -5,6 +5,7 @@
 </div>
 
 <div class="content-container">
+  <h2>Listado de tareas</h2>
   <div *ngIf="existTask">
     <div *ngFor="let task of filteredTasks; let i = index">
         <h3>{{ i + 1 }}. Nombre de la tarea: {{ task.name }}</h3>
@@ -14,8 +15,8 @@
           Tarea completada
         </label>
 
-        <h4>Due Date: {{ task.dueDate | date }}</h4>
-        <h4>Assigned People:</h4>
+        <h4>Fecha límite: {{ task.dueDate | date }}</h4>
+        <h4>Personas asignadas:</h4>
 
         <table class="styled-table">
           <thead>
@@ -27,7 +28,7 @@
           </thead>
           <tbody>
             <tr *ngFor="let person of task.assignedPeople">
-              <td>{{ person.name }}</td>
+              <td>{{ person.nameP }}</td>
               <td>{{ person.age }}</td>
               <td>{{ getSkills(person) }}</td>
             </tr>

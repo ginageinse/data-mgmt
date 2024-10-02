@@ -1,14 +1,8 @@
 import { Action, createReducer, on } from '@ngrx/store';
 import { Task } from '../models/task.model';
 import { addTask, updateTask } from './task.actions';
+import { TaskState, initialState } from './task.state';
 
-export interface TaskState {
-  tasks: Task[];
-}
-
-export const initialState: TaskState = {
-  tasks: []
-};
 
 const _taskReducer = createReducer(
   initialState,

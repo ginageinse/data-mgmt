@@ -10,7 +10,6 @@ import { TaskService } from '../../services/task.services';
   styleUrls: ['./create-task.component.scss']
 })
 export class CreateTaskComponent implements OnInit {
-
   taskForm!: FormGroup;
   taskFormSubmitted = false;
 
