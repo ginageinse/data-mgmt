@@ -14,6 +14,9 @@ import { updateTask } from '../task.actions';
 export class ListTasksComponent implements OnInit {
   tasks$!: Observable<Task[]>;
   existTask: boolean = false;
+  filteredTasks: Task[] = [];
+  currentFilter: string = 'all';
+  emptyTask: boolean = false;
 
   constructor(
     private store: Store,
@@ -24,6 +27,7 @@ export class ListTasksComponent implements OnInit {
     this.tasks$ = this.store.select(selectAllTasks);
     this.tasks$.subscribe(tasks => {
       this.existTask = tasks.length > 0;
+      this.setFilter('all');
     });
   }
 
@@ -32,11 +36,37 @@ export class ListTasksComponent implements OnInit {
   }
 
   toggleCompletion(task: Task) {
-    console.log('Toggling completion for:', task);
     const updatedTask = {
       ...task,
       isCompleted: !task.isCompleted
     };
     this.store.dispatch(updateTask({ task: updatedTask }));
+  }
+
+  setFilter(filter: string) {
+    this.currentFilter = filter;
+    this.tasks$.subscribe(tasks => {
+      this.applyFilter(tasks);
+    });
+  }
+
+  applyFilter(tasks: Task[]) {
+
+    if (this.currentFilter === 'completed') {
+      this.filteredTasks = tasks.filter(task => task.isCompleted);
+    } else if (this.currentFilter === 'notCompleted') {
+      this.filteredTasks = tasks.filter(task => !task.isCompleted);
+    } else {
+      this.filteredTasks = tasks;
+    }
+    this.emptyFilterTask(this.filteredTasks)
+  }
+
+  emptyFilterTask( task: Task[]) {
+    if (task.length === 0) {
+      this.emptyTask = false;
+    } else {
+      this.emptyTask = true;
+    }
   }
 }

@@ -3,6 +3,9 @@ $button-color: #448374;
 $button-principal-color: #1f4c3f;
 $button-hover-color: darken($button-color, 10%);
 $background: #a8d4c6;
+$alert: #ed7b4a;
+$disabled: #ebefe5;
+$white: white;
 
 .container {
   background-color: $background;
@@ -35,7 +38,6 @@ $background: #a8d4c6;
 
   @media (max-width: 600px) {
     min-width: auto;
-    width: 100%;
   }
 
   .form-group {
@@ -64,19 +66,19 @@ $background: #a8d4c6;
       }
     }
   }
+}
 
-  button {
-    background-color: $button-color;
-    color: white;
-    padding: 10px 15px;
-    border: none;
-    border-radius: 4px;
-    font-size: 1em;
-    cursor: pointer;
-    transition: background-color 0.3s;
+button {
+  background-color: $button-color;
+  color: white;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 4px;
+  font-size: 1em;
+  cursor: pointer;
+  transition: background-color 0.3s;
 
-    &:hover {
-      background-color: $button-hover-color;
-    }
+  &:hover {
+    background-color: $button-hover-color;
   }
 }

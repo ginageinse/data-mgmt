@@ -84,8 +84,6 @@ export class CreateTaskComponent implements OnInit {
       this.taskService.addTask(task);
       this.taskForm.reset();
       this.taskFormSubmitted = false;
-    } else {
-      // alert('Por favor, complete todos los campos requeridos.');
     }
   }
 }

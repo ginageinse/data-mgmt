@@ -23,6 +23,13 @@
 
   .principal-button{
     background-color: $button-principal-color;
+
+    &:disabled {
+      background-color: $white;
+      color: $disabled;
+      border: 2px solid $disabled;
+      cursor: not-allowed;
+    }
   }
 }
 
@@ -46,8 +53,11 @@ a {
 }
 
 .error-text {
-  color: red;
+  color: $alert;
   font-size: 0.875rem;
   margin-top: 5px;
 }
 
+.error {
+  margin-top: 1%;
+}
