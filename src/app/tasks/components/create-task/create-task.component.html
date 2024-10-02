@@ -25,11 +25,11 @@
           <div *ngFor="let person of assignedPeople.controls; let i = index" [formGroupName]="i" class="person">
             <label for="nameP" class="sub-label">Nombre</label>
             <input formControlName="nameP" id="nameP" type="text" placeholder="Ingrese el nombre de la persona" required />
-            <div *ngIf="person.get('nameP')?.invalid && person.get('nameP')?.touched || person.get('nameP')?.invalid && taskFormSubmitted" class="error-text">
+            <div *ngIf="person.get('nameP')?.hasError('required') && person.get('nameP')?.touched || person.get('nameP')?.invalid && taskFormSubmitted" class="error-text">
               El nombre de la persona es requerido.
             </div>
 
-            <div *ngIf="person.get('name')?.hasError('duplicate') && (person.get('name')?.touched || taskFormSubmitted)" class="error-text">
+            <div *ngIf="person.get('nameP')?.hasError('duplicate') && (person.get('nameP')?.touched || taskFormSubmitted)" class="error-text">
               El nombre de la persona no puede estar duplicado.
             </div>
 

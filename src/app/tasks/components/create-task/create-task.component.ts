@@ -69,7 +69,7 @@ export class CreateTaskComponent implements OnInit {
 
   noDuplicateNames(control: AbstractControl): { [key: string]: boolean } | null {
     const formArray = control as FormArray;
-    const names = formArray.controls.map(person => person.get('name')?.value.toLowerCase());
+    const names = formArray.controls.map(person => person.get('nameP')?.value.toLowerCase());
 
     const duplicateIndices: number[] = [];
     names.forEach((name, index) => {
@@ -80,9 +80,9 @@ export class CreateTaskComponent implements OnInit {
 
     formArray.controls.forEach((person, index) => {
       if (duplicateIndices.includes(index)) {
-        person.get('name')?.setErrors({ duplicate: true });
+        person.get('nameP')?.setErrors({ duplicate: true });
       } else {
-        person.get('name')?.setErrors(null);
+        person.get('nameP')?.setErrors(null);
       }
     });
 
@@ -97,8 +97,12 @@ export class CreateTaskComponent implements OnInit {
 
   onSubmit() {
     this.taskFormSubmitted = true;
+    console.log(this.taskForm.value);
+    console.log(this.taskForm.valid)
+
 
     if (this.taskForm.valid) {
+      console.log('goooo')
       const task = {
         id: Date.now(),
         name: this.taskForm.value.name,
