@@ -22,16 +22,24 @@
         <label>Personas Asignadas</label>
         <div formArrayName="assignedPeople">
           <div *ngFor="let person of assignedPeople.controls; let i = index" [formGroupName]="i" class="person">
-            <label for="name" class="sub-label">Nombre</label>
-            <input formControlName="name" id="name" type="text" placeholder="Ingrese el nombre de la persona" required />
-            <div *ngIf="person.get('name')?.invalid && person.get('name')?.touched || person.get('name')?.invalid && taskFormSubmitted" class="error-text">
+            <label for="nameP" class="sub-label">Nombre</label>
+            <input formControlName="nameP" id="nameP" type="text" placeholder="Ingrese el nombre de la persona" required />
+            <div *ngIf="person.get('nameP')?.invalid && person.get('nameP')?.touched || person.get('nameP')?.invalid && taskFormSubmitted" class="error-text">
               El nombre de la persona es requerido.
             </div>
 
+            <div *ngIf="person.get('name')?.hasError('duplicate') && (person.get('name')?.touched || taskFormSubmitted)" class="error-text">
+              El nombre de la persona no puede estar duplicado.
+            </div>
+
+
             <label for="age" class="sub-label">Edad</label>
             <input formControlName="age" id="age" type="number" placeholder="Ingrese la edad de la persona" required />
-            <div *ngIf="person.get('age')?.invalid && person.get('age')?.touched || person.get('age')?.invalid && taskFormSubmitted" class="error-text">
-              La edad es requerida y debe ser mayor a 0.
+            <div *ngIf="person.get('age')?.hasError('required') && (person.get('age')?.touched || taskFormSubmitted)" class="error-text">
+              La edad es requerida.
+            </div>
+            <div *ngIf="person.get('age')?.hasError('ageTooYoung') && (person.get('age')?.touched || taskFormSubmitted)" class="error-text">
+              La edad debe ser mayor a 18.
             </div>
 
             <div formArrayName="skills">

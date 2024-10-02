@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { selectAllTasks } from '../task.selectors';
-import { Task, Person } from '../task.model';
-import { TaskService } from '../task.services';
-import { updateTask } from '../task.actions';
+import { selectAllTasks } from '../../store/task.selectors';
+import { Task, Person } from '../../models/task.model';
+import { TaskService } from '../../services/task.services';
+import { updateTask } from '../../store/task.actions';
 
 @Component({
   selector: 'app-list-tasks',
