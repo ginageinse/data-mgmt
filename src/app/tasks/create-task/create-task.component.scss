@@ -6,9 +6,9 @@
   }
 
   .space {
-    margin-top: 1%;
+    margin-top: 2%;
     display: block;
-    margin-bottom: 1%;
+    margin-bottom: 2%;
   }
 
   .sub-label {
@@ -24,6 +24,25 @@
   .principal-button{
     background-color: $button-principal-color;
   }
+}
+
+.person {
+  border: 3px solid $button-principal-color;
+  padding: 3%;
+  margin-top: 1%;
+  border-radius: 6px;
+}
+
+a {
+  cursor: pointer;
+  align-content: center;
+}
+
+.sub-grid-container {
+  display: grid;
+  grid-template-columns: 4fr 1fr;
+  gap: 20px;
+  width: 100%;
 }
 
 .error-text {

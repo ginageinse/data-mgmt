@@ -4,7 +4,7 @@
     <div class="space-margin">
       <div class="form-group">
         <label for="name">Nombre de la Tarea</label>
-        <input type="text" id="name" formControlName="name" required />
+        <input type="text" id="name" placeholder="Ingresa el nombre de una tarea" formControlName="name" required />
         <div *ngIf="taskForm.get('name')?.invalid && taskForm.get('name')?.touched || taskForm.get('name')?.invalid && taskFormSubmitted" class="error-text">
           El nombre de la tarea es requerido.
         </div>
@@ -21,7 +21,7 @@
       <div class="form-group">
         <label>Personas Asignadas</label>
         <div formArrayName="assignedPeople">
-          <div *ngFor="let person of assignedPeople.controls; let i = index" [formGroupName]="i">
+          <div *ngFor="let person of assignedPeople.controls; let i = index" [formGroupName]="i" class="person">
             <label for="name" class="sub-label">Nombre</label>
             <input formControlName="name" id="name" type="text" placeholder="Ingrese el nombre de la persona" required />
             <div *ngIf="person.get('name')?.invalid && person.get('name')?.touched || person.get('name')?.invalid && taskFormSubmitted" class="error-text">
@@ -37,15 +37,15 @@
             <div formArrayName="skills">
               <div *ngFor="let skill of getSkills(i).controls; let j = index">
                 <label for="skill" class="sub-label">Habilidad</label>
-                <div class="grid-container">
+                <div class="sub-grid-container">
                   <input [formControlName]="j" id="skill" type="text" placeholder="Ingrese una habilidad" required />
 
-
-                  <button type="button" (click)="removeSkill(i, j)">Eliminar habilidad</button>
-                  <div *ngIf="skill.invalid && skill.touched || skill.invalid && taskFormSubmitted" class="error-text">
-                    La habilidad es requerida.
-                  </div>
-
+                  <a type="button" (click)="removeSkill(i, j)">
+                    <img src="assets/icons/trash.png" alt="Eliminar habilidad" width="20" height="20">
+                  </a>
+                </div>
+                <div *ngIf="skill.invalid && skill.touched || skill.invalid && taskFormSubmitted" class="error-text">
+                  La habilidad es requerida.
                 </div>
               </div>
             </div>
@@ -63,6 +63,7 @@
             Debes agregar al menos una persona.
           </div>
         </div>
+
         <button type="button" class="space" style="width: 100%;" (click)="addPerson()">Agregar Persona</button>
       </div>
 

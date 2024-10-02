@@ -27,8 +27,8 @@ export class ListTasksComponent implements OnInit {
   }
 
   getSkills(person: Person): string {
-    console.log(person)
-    return person.skills.map(skill => skill.skill).join(', ');
+    return person.skills.join(', ');
   }
+
 
 }
