@@ -5,7 +5,7 @@
       <h2>Crea tus tareas</h2>
       <div class="form-group">
         <label for="name">Nombre de la Tarea</label>
-        <input type="text" id="name" placeholder="Ingresa el nombre de una tarea" formControlName="name" required />
+        <input type="text" id="name" placeholder="Ingresa el nombre de una tarea" formControlName="name" required autocomplete="off" />
         <div *ngIf="taskForm.get('name')?.invalid && taskForm.get('name')?.touched || taskForm.get('name')?.invalid && taskFormSubmitted" class="error-text">
           El nombre de la tarea es requerido.
         </div>
@@ -13,7 +13,7 @@
 
       <div class="form-group">
         <label for="dueDate">Fecha límite</label>
-        <input type="date" id="dueDate" formControlName="dueDate" />
+        <input type="date" id="dueDate" formControlName="dueDate" autocomplete="off" />
         <div *ngIf="taskForm.get('dueDate')?.invalid && taskForm.get('dueDate')?.touched || taskForm.get('dueDate')?.invalid && taskFormSubmitted" class="error-text">
           La fecha límite es requerida.
         </div>
@@ -24,7 +24,7 @@
         <div formArrayName="assignedPeople">
           <div *ngFor="let person of assignedPeople.controls; let i = index" [formGroupName]="i" class="person">
             <label for="nameP" class="sub-label">Nombre</label>
-            <input formControlName="nameP" id="nameP" type="text" placeholder="Ingrese el nombre de la persona" required />
+            <input formControlName="nameP" id="nameP" type="text" placeholder="Ingrese el nombre de la persona" required autocomplete="off" />
             <div *ngIf="person.get('nameP')?.hasError('required') && person.get('nameP')?.touched || person.get('nameP')?.invalid && taskFormSubmitted" class="error-text">
               El nombre de la persona es requerido.
             </div>
@@ -35,7 +35,7 @@
 
 
             <label for="age" class="sub-label">Edad</label>
-            <input formControlName="age" id="age" type="number" placeholder="Ingrese la edad de la persona" required />
+            <input formControlName="age" id="age" type="number" placeholder="Ingrese la edad de la persona" required autocomplete="off" />
             <div *ngIf="person.get('age')?.hasError('required') && (person.get('age')?.touched || taskFormSubmitted)" class="error-text">
               La edad es requerida.
             </div>
@@ -47,7 +47,7 @@
               <div *ngFor="let skill of getSkills(i).controls; let j = index">
                 <label for="skill" class="sub-label">Habilidad</label>
                 <div class="sub-grid-container">
-                  <input [formControlName]="j" id="skill" type="text" placeholder="Ingrese una habilidad" required />
+                  <input [formControlName]="j" id="skill" type="text" placeholder="Ingrese una habilidad" required autocomplete="off" />
 
                   <a type="button" (click)="removeSkill(i, j)">
                     <img src="assets/icons/trash.png" alt="Eliminar habilidad" width="20" height="20">

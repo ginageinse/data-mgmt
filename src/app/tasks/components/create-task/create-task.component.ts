@@ -69,11 +69,14 @@ export class CreateTaskComponent implements OnInit {
 
   noDuplicateNames(control: AbstractControl): { [key: string]: boolean } | null {
     const formArray = control as FormArray;
-    const names = formArray.controls.map(person => person.get('nameP')?.value.toLowerCase());
+    const names = formArray.controls.map(person => {
+      const nameControl = person.get('nameP');
+      return nameControl ? nameControl.value?.toLowerCase() : null;
+    });
 
     const duplicateIndices: number[] = [];
     names.forEach((name, index) => {
-      if (names.indexOf(name) !== index) {
+      if (name !== null && names.indexOf(name) !== index) {
         duplicateIndices.push(index);
       }
     });
@@ -89,7 +92,6 @@ export class CreateTaskComponent implements OnInit {
     return duplicateIndices.length > 0 ? { duplicateNames: true } : null;
   }
 
-
   skillsRequired(control: AbstractControl): { [key: string]: boolean } | null {
     const formArray = control as FormArray;
     return formArray.length > 0 ? null : { required: true };
@@ -97,12 +99,8 @@ export class CreateTaskComponent implements OnInit {
 
   onSubmit() {
     this.taskFormSubmitted = true;
-    console.log(this.taskForm.value);
-    console.log(this.taskForm.valid)
-
 
     if (this.taskForm.valid) {
-      console.log('goooo')
       const task = {
         id: Date.now(),
         name: this.taskForm.value.name,
@@ -114,6 +112,7 @@ export class CreateTaskComponent implements OnInit {
       this.store.dispatch(addTask({ task }));
       this.taskService.addTask(task);
       this.taskForm.reset();
+      this.assignedPeople.clear();
       this.taskFormSubmitted = false;
     }
   }
