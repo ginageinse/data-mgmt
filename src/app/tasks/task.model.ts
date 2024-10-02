@@ -3,6 +3,7 @@ export interface Task {
   name: string;
   dueDate: Date;
   assignedPeople: Person[];
+  isCompleted: boolean;
 }
 
 export interface Person {

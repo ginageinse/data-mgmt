@@ -2,9 +2,10 @@ $form-background-color: #eeefe5;
 $button-color: #448374;
 $button-principal-color: #1f4c3f;
 $button-hover-color: darken($button-color, 10%);
+$background: #a8d4c6;
 
 .container {
-  background-color: #a8d4c6;
+  background-color: $background;
   padding: 20px;
   border-radius: 8px;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
@@ -38,7 +39,7 @@ $button-hover-color: darken($button-color, 10%);
   }
 
   .form-group {
-    margin-bottom: 20px;
+    margin-bottom: 10px;
 
     label {
       display: block;

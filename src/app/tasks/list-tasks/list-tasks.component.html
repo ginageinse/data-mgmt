@@ -1,7 +1,13 @@
 <div class="content-container">
   <div *ngIf="existTask">
     <div *ngFor="let task of tasks$ | async; let i = index">
-      <h3>{{ i + 1 }}. {{ task.name }}</h3>
+      <h3>{{ i + 1 }}. Nombre de la tarea: {{ task.name }}</h3>
+
+      <label>
+        <input type="checkbox" [checked]="task.isCompleted" (change)="toggleCompletion(task)" />
+        Tarea completada
+      </label>
+
       <h4>Due Date: {{ task.dueDate | date }}</h4>
       <h4>Assigned People:</h4>
 

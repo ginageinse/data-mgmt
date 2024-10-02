@@ -15,14 +15,16 @@ p {
 
   thead {
     tr {
-      background-color: #a8d4c6;
+      background-color: $button-color;
       color: #ffffff;
       text-align: left;
+      font-size: 15px;
     }
   }
 
   th, td {
     padding: 12px 15px;
+    font-size: 15px;
   }
 
   tbody {
@@ -34,7 +36,7 @@ p {
       }
 
       &:last-of-type {
-        border-bottom: 2px solid #a8d4c6;
+        border-bottom: 2px solid $button-color;
       }
 
       &:hover {
@@ -42,4 +44,28 @@ p {
       }
     }
   }
+}
+
+input[type="checkbox"] {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  width: 15px;
+  height: 15px;
+  background-color: #eee;
+  border: 2px solid $button-principal-color;
+  border-radius: 4px;
+  vertical-align: top;
+
+  &:checked {
+    background-color: $button-principal-color;
+    border-color: $button-principal-color;
+  }
+}
+
+input[type="checkbox"]:checked::after {
+  content: '✔';
+  color: white;
+  position: relative;
+  top: -3px;
 }

@@ -76,7 +76,8 @@ export class CreateTaskComponent implements OnInit {
         id: Date.now(),
         name: this.taskForm.value.name,
         dueDate: this.taskForm.value.dueDate,
-        assignedPeople: this.taskForm.value.assignedPeople
+        assignedPeople: this.taskForm.value.assignedPeople,
+        isCompleted: false
       };
 
       this.store.dispatch(addTask({ task }));
@@ -84,7 +85,7 @@ export class CreateTaskComponent implements OnInit {
       this.taskForm.reset();
       this.taskFormSubmitted = false;
     } else {
-      alert('Por favor, complete todos los campos requeridos.');
+      // alert('Por favor, complete todos los campos requeridos.');
     }
   }
 }

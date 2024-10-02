@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { selectAllTasks } from '../task.selectors';
 import { Task, Person } from '../task.model';
 import { TaskService } from '../task.services';
+import { updateTask } from '../task.actions';
 
 @Component({
   selector: 'app-list-tasks',
@@ -30,5 +31,12 @@ export class ListTasksComponent implements OnInit {
     return person.skills.join(', ');
   }
 
-
+  toggleCompletion(task: Task) {
+    console.log('Toggling completion for:', task);
+    const updatedTask = {
+      ...task,
+      isCompleted: !task.isCompleted
+    };
+    this.store.dispatch(updateTask({ task: updatedTask }));
+  }
 }
